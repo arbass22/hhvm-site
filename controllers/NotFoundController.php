@@ -2,14 +2,14 @@
 
 use Facebook\HackRouter\UriPattern;
 
-final class HomeController extends WebController {
+final class NotFoundController extends WebController {
 
   use PageWithNav;
 
   <<__Override>>
   public static function getUriPattern(): UriPattern {
     return (new UriPattern())
-      ->literal('/');
+      ->literal('/notfound');
   }
 
   <<__Override>>
@@ -35,7 +35,7 @@ final class HomeController extends WebController {
       return
       <div>
       {$this->getNav()}
-      <h1>HomePage</h1>
+      <h1>404 - Whaaat??</h1>
       </div>;
     }
 

@@ -1,3 +1,3 @@
 {
-  "roots": [ "components/", "controllers/", "models/" ]
+  "roots": [ "components/", "controllers/", "models/", "codegen/" ]
 }

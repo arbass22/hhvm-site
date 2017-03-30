@@ -1,32 +1,40 @@
 <?hh // strict
 
-abstract class WebController {
+use Facebook\HackRouter\{
+  IncludeInUriMap,
+  SupportsGetRequests,
+  HasUriPattern
+};
 
-    abstract protected function getCSS(): Set<string>;
-    abstract protected function getJS(): Set<string>;
-    abstract protected function getTitle(): string;
-    abstract protected function genRender(): Awaitable<:xhp>;
+abstract class WebController
+  implements IncludeInUriMap, HasUriPattern, SupportsGetRequests {
 
-    final private function getHead(): :xhp {
-        $css = $this->getCSS()->toVector()->map(
-            ($css) ==> <link rel="stylesheet" type="text/css" href={$css} />
-        );
-        $js = $this->getJS()->toVector()->map(
-            ($js) ==> <script src={$js} />
-        );
+  abstract protected function getCSS(): Set<string>;
+  abstract protected function getJS(): Set<string>;
+  abstract protected function getTitle(): string;
+  abstract protected function genRender(): Awaitable<:xhp>;
 
-        return
-            <head>
-                <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-                <title>{$this->getTitle()}</title>
-                {$css->toArray()}
-                {$js->toArray()}
-            </head>;
-    }
+  final private function getHead(): :xhp {
+    $css = $this->getCSS()->toVector()->map(
+      ($css) ==> <link rel="stylesheet" type="text/css" href={$css} />
+    );
+    $js = $this->getJS()->toVector()->map(
+      ($js) ==> <script src={$js} />
+    );
 
-    final public function renderTotalPage(): void {
-        echo "<!DOCTYPE html>";
-        echo $this->getHead();
-        echo \HH\Asio\join($this->genRender());
-    }
+    return
+      <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{$this->getTitle()}</title>
+        {$css->toArray()}
+        {$js->toArray()}
+      </head>;
+  }
+
+  final public function renderTotalPage(): void {
+    echo "<!DOCTYPE html>";
+    echo $this->getHead();
+    echo \HH\Asio\join($this->genRender());
+  }
 }
