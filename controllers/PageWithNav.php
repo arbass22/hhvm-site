@@ -1,7 +1,10 @@
 <?hh  // strict
 
+require_once '../vendor/hh_autoload.php';
+
 trait PageWithNav {
   public function getNav(): :xhp {
-    return <div>I am a navbar</div>;
+    return
+      <navbar/>;
   }
 }
