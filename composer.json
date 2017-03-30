@@ -1,5 +1,10 @@
 {
     "require": {
-        "facebook/xhp-lib": "~2.2"
-    }
+        "facebook/xhp-lib": "~2.2",
+        "facebook/hack-router": "^1.0@RC",
+        "facebook/hack-router-codegen": "^1.0@RC",
+        "facebook/hhvm-autoload": "^1.3"
+    },
+    "minimum-stability" : "dev",
+    "prefer-stable" : true
 }
