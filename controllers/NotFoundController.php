@@ -4,8 +4,6 @@ use Facebook\HackRouter\UriPattern;
 
 final class NotFoundController extends WebController {
 
-  use PageWithNav;
-
   <<__Override>>
   public static function getUriPattern(): UriPattern {
     return (new UriPattern())
@@ -34,7 +32,6 @@ final class NotFoundController extends WebController {
     public async function genRender(): Awaitable<:xhp> {
       return
       <div>
-      {$this->getNav()}
       <h1>404 - Whaaat??</h1>
       </div>;
     }

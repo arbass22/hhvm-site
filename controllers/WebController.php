@@ -3,11 +3,15 @@
 use Facebook\HackRouter\{
   IncludeInUriMap,
   SupportsGetRequests,
-  HasUriPattern
+  HasUriPattern,
+  GetUriBuilderFromUriPattern
 };
 
 abstract class WebController
   implements IncludeInUriMap, HasUriPattern, SupportsGetRequests {
+
+  use GetUriBuilderFromUriPattern;
+
 
   abstract protected function getCSS(): Set<string>;
   abstract protected function getJS(): Set<string>;
@@ -34,6 +38,7 @@ abstract class WebController
 
   final public function renderTotalPage(): void {
     echo "<!DOCTYPE html>";
+    echo <navbar/>;
     echo $this->getHead();
     echo \HH\Asio\join($this->genRender());
   }

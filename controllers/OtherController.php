@@ -2,8 +2,6 @@
 
 final class OtherController extends WebController {
 
-  use PageWithNav;
-
   public static function getUriPattern(): Facebook\HackRouter\UriPattern {
     return (new Facebook\HackRouter\UriPattern())
       ->literal('/other');
@@ -31,7 +29,6 @@ final class OtherController extends WebController {
   public async function genRender(): Awaitable<:xhp> {
     return
       <div>
-      {$this->getNav()}
       <h1>Other page</h1>
       </div>;
   }
