@@ -3,10 +3,13 @@
 class :navbar extends :x:element {
 
   protected function render(): XHPRoot {
-    $title = <div>UMass TextSwap</div>;
+    $title = <div>HHVM Site</div>;
     $title->addClass("header");
 
-    $container = <div><main:logo/>{$title}</div>;
+    $subtitle = <h3>with Routing and Autoloading </h3>;
+    $subtitle->addClass("subtitle");
+
+    $container = <div><main:logo/>{$title}{$subtitle}</div>;
     $container->addClass("container");
 
     $navbar = <div>{$container}</div>;

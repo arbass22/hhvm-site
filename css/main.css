@@ -10,6 +10,12 @@
   float: left;
 }
 
+.subtitle {
+  color: white;
+  margin: 52px 0px 12px 12px;
+  float: left;
+}
+
 .navbar img {
   float: left;
   margin: 12px;

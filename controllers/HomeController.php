@@ -4,36 +4,27 @@ use Facebook\HackRouter\UriPattern;
 
 final class HomeController extends WebController {
 
+  /* Whenever you implement or change this method in a controller
+    you must re-generate the router */
   <<__Override>>
   public static function getUriPattern(): UriPattern {
     return (new UriPattern())
       ->literal('/');
   }
 
+
   <<__Override>>
-  protected function getCSS(): Set<string> {
-    return Set{
-      "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
-      "css/main.css"
-    };
+  protected function getTitle(): string {
+    return "HomePage";
   }
 
   <<__Override>>
-  protected function getJS(): Set<string> {
-    return Set{};
-    }
-
-    <<__Override>>
-    protected function getTitle(): string {
-      return "HomePage";
-    }
-
-    <<__Override>>
-    public async function genRender(): Awaitable<:xhp> {
-      return
+  public async function genRender(): Awaitable<:xhp> {
+    return (
       <div>
-      <h1>HomePage</h1>
-      </div>;
-    }
-
+        <h1>HomePage</h1>
+      </div>
+    );
   }
+  
+}

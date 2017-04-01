@@ -13,24 +13,12 @@ final class OtherController extends WebController {
   }
 
   <<__Override>>
-  protected function getCSS(): Set<string> {
-    return Set{
-      "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
-      "css/main.css"
-    };
-  }
-
-  <<__Override>>
-  protected function getJS(): Set<string> {
-    return Set{};
-  }
-
-  <<__Override>>
   public async function genRender(): Awaitable<:xhp> {
-    return
+    return (
       <div>
-      <h1>Other page</h1>
-      </div>;
+        <h1>Other page</h1>
+      </div>
+    );
   }
 
 }

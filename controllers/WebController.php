@@ -12,11 +12,34 @@ abstract class WebController
 
   use GetUriBuilderFromUriPattern;
 
-
-  abstract protected function getCSS(): Set<string>;
-  abstract protected function getJS(): Set<string>;
   abstract protected function getTitle(): string;
   abstract protected function genRender(): Awaitable<:xhp>;
+
+  private function getCSS(): Set<string> {
+    // These are the css classes that should be included on every page
+    $set = Set{
+      "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
+      "css/main.css"
+    };
+    return $set->addAll($this->getExtraCSS());
+  }
+
+  private function getJS(): Set<string> {
+    // These are the js files that should be indlude on every page,
+    // feel free to include files from a CDN.
+    $set = Set{};
+    return $set->addAll($this->getExtraJS());
+  }
+
+  //Override this method to include extra css files
+  protected function getExtraCSS(): Set<string> {
+    return Set{};
+  }
+
+  // Override this method to include exta javascript files
+  protected function getExtraJS(): Set<string> {
+    return Set{};
+  }
 
   final private function getHead(): :xhp {
     $css = $this->getCSS()->toVector()->map(
