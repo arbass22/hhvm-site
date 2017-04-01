@@ -9,7 +9,7 @@ final class OtherController extends WebController {
 
   <<__Override>>
   protected function getTitle(): string {
-    return "Other page";
+    return "Other Page";
   }
 
   <<__Override>>

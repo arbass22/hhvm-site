@@ -10,17 +10,16 @@ final class NotFoundController extends WebController {
     ->literal('/notfound');
   }
 
-
   <<__Override>>
   protected function getTitle(): string {
-    return "HomePage";
+    return "Page Not Found";
   }
 
   <<__Override>>
   public async function genRender(): Awaitable<:xhp> {
     return (
       <div>
-        <h1>404 - Whaaat??</h1>
+        <h1>404 - Page not Found</h1>
       </div>
     );
   }
