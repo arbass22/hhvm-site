@@ -6,6 +6,30 @@ routing, HHVM should be setup behind a reverse-proxy such as nginx.
 1. Install and setup HHVM and nginx, good tutorial can be found [here](https://www.digitalocean.com/community/tutorials/how-to-install-hhvm-with-nginx-on-ubuntu-14-04).
 We will make some changes to the nginx configuration to allow our routing to work properly.
 
+2. Allow HHVM to handle all paths
+Since we want to define routing paths in the controllers, we need to configure nginx to send all request paths to HHVM and handle 404's there instead.  If you configured nginx and HHVM as above, then there should be a `/etc/nginx/hhvm.conf` file that is included as a part of the default site.  Edit this file to pass all paths except css or js files to HHVM.
+
+```
+location ~* \.(css|js) {
+    root /home/andrew/www/hhvm-site;
+    fastcgi_keep_conn on;
+    fastcgi_pass unix:/var/run/hhvm/hhvm.sock;
+    fastcgi_index  index.php;
+    fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include        fastcgi_params;
+}
+
+location / {
+    root /home/andrew/www/hhvm-site;
+    fastcgi_keep_conn on;
+    fastcgi_pass unix:/var/run/hhvm/hhvm.sock;
+    fastcgi_index  index.php;
+    fastcgi_param  SCRIPT_FILENAME $document_root;
+    include        fastcgi_params;
+}
+```
+Reload nginx after making any configuration changes, `$ sudo service nginx reload`.
+
 ## Usage
 ### Adding a new controller
 If you want to add a new controller to the site you should extend `WebController`.  Subclasses will be included in the
@@ -21,6 +45,15 @@ the `getUriPattern()` method and return your new `UrlPattern`.  A simple impleme
 ```
 This controller would be invoked for urls such as www.yourdomain.com/users/arbass22. Whenever you add a controller or change
 the implementation of this method you will need to regenerate the router.  From the project root, run `$ hhvm build_router.php`.
+
+You will then need to implement two methods:
+1. `protected function getTitle(): string`
+This method should return the page title, which will show up in the browser tab.
+2. `protected function genRender(): Awaitable<:xhp>`
+This method which should return the pages content, in [XHP](https://docs.hhvm.com/hack/XHP/introduction).  Since this returns an `Awaitable`, you can use async calls here as necessary.
+
+Optionally if you need to use page-specific css or javascript files, then you can override `protected function getExtraCSS(): Set<string>` or `protected function getExtraJS(): Set<string>`.  Static files that should be included on every page (eg: main.css, bootstrap, jquery) should be added into `WebController` directly.
+
 
 ### Adding a new class
 If you add a new .php class then you will want it to be autoloaded so you can reference it in different files without having to manually include it.  Whenever you add a new class you will have to regenerate the autoloader.  You should tell composer to dump its current autoload, so try runnng `$ hhvm composer.phar dump-autoload` or `$ hhvm /usr/local/bin/composer dump-autoload` referencing wherever the composer binary is installed.
