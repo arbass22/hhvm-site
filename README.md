@@ -21,3 +21,6 @@ the `getUriPattern()` method and return your new `UrlPattern`.  A simple impleme
 ```
 This controller would be invoked for urls such as www.yourdomain.com/users/arbass22. Whenever you add a controller or change
 the implementation of this method you will need to regenerate the router.  From the project root, run `$ hhvm build_router.php`.
+
+### Adding a new class
+If you add a new .php class then you will want it to be autoloaded so you can reference it in different files without having to manually include it.  Whenever you add a new class you will have to regenerate the autoloader.  You should tell composer to dump its current autoload, so try runnng `$ hhvm composer.phar dump-autoload` or `$ hhvm /usr/local/bin/composer dump-autoload` referencing wherever the composer binary is installed.
