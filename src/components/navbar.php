@@ -10,6 +10,7 @@ class :navbar extends :x:element {
             <main:logo />
             <div class="header">HHVM Site2</div>
             <h3 class="subtitle">with Routing and Autoloading </h3>
+            <nav:list />
           </div>
         </div>
       </x:frag>
