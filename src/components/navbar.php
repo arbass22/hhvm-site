@@ -3,19 +3,17 @@
 class :navbar extends :x:element {
 
   protected function render(): XHPRoot {
-    $title = <div>HHVM Site</div>;
-    $title->addClass("header");
-
-    $subtitle = <h3>with Routing and Autoloading </h3>;
-    $subtitle->addClass("subtitle");
-
-    $container = <div><main:logo/>{$title}{$subtitle}</div>;
-    $container->addClass("container");
-
-    $navbar = <div>{$container}</div>;
-    $navbar->addClass("navbar");
-
-    return $navbar;
+    return (
+      <x:frag>
+        <div class="navbar">
+          <div class="container">
+            <main:logo />
+            <div class="header">HHVM Site2</div>
+            <h3 class="subtitle">with Routing and Autoloading </h3>
+          </div>
+        </div>
+      </x:frag>
+    );
   }
 
 }
