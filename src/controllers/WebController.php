@@ -61,8 +61,8 @@ abstract class WebController
 
   final public function renderTotalPage(): void {
     echo "<!DOCTYPE html>";
-    echo <navbar/>;
     echo $this->getHead();
+    echo <navbar/>;
     echo \HH\Asio\join($this->genRender());
   }
 }
